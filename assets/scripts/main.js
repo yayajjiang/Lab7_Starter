@@ -14,6 +14,7 @@ const RECIPE_URLS = [
 window.addEventListener('DOMContentLoaded', init);
 
 // Starts the program, all function calls trace back here
+// await -> async function
 async function init() {
   // initialize ServiceWorker
   initializeServiceWorker();
@@ -32,7 +33,7 @@ async function init() {
  * Detects if there's a service worker, then loads it and begins the process
  * of installing it and getting it running
  */
-function initializeServiceWorker() {
+async function initializeServiceWorker() {
   // EXPLORE - START (All explore numbers start with B)
   /*******************/
   // ServiceWorkers have many uses, the most common of which is to manage
@@ -51,9 +52,7 @@ function initializeServiceWorker() {
         // Steps B3-B6 will be *inside* the event listener's function created in B2
         // B3. TODO - Register './sw.js' as a service worker (The MDN article
         //            "Using Service Workers" will help you here)
-      let registration = await navigator.serviceWorker.register("/sw.js", {
-        scope: "/",
-      });
+      let registration = await navigator.serviceWorker.register("./sw.js", {scope: "./",});
       // B4. TODO - Once the service worker has been successfully registered, console
       //            log that it was successful.
       if (registration.active) {
@@ -109,7 +108,7 @@ async function getRecipes() {
   //            function (we call these callback functions). That function will
   //            take two parameters - resolve, and reject. These are functions
   //            you can call to either resolve the Promise or Reject it.
-  return new Promise((resolve, reject) => {
+  return new Promise(async (resolve, reject) => {
     // A4. TODO - Loop through each recipe in the RECIPE_URLS array constant
     //            declared above
     /**************************/
@@ -125,7 +124,7 @@ async function getRecipes() {
         //            article on fetch(). NOTE: Fetches are ASYNCHRONOUS, meaning that
         //            you must either use "await fetch(...)" or "fetch.then(...)". This
         //            function is using the async keyword so we recommend "await"
-        let fetches = await fetch(RECIPE_URLS[i])
+        let fetches = await fetch(RECIPE_URLS[i]);
         
         // A7. TODO - For each fetch response, retrieve the JSON from it using .json().
         //            NOTE: .json() is ALSO asynchronous, so you will need to use

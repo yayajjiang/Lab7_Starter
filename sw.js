@@ -9,21 +9,21 @@ self.addEventListener('install', function (event) {
     caches.open(CACHE_NAME).then(function (cache) {
       // B6. TODO - Add all of the URLs from RECIPE_URLs here so that they are
       //            added to the cache when the ServiceWorker is installed
-      const RECIPEURLS = [
-        'https://introweb.tech/assets/json/1_50-thanksgiving-side-dishes.json',
-        'https://introweb.tech/assets/json/2_roasting-turkey-breast-with-stuffing.json',
-        'https://introweb.tech/assets/json/3_moms-cornbread-stuffing.json',
-        'https://introweb.tech/assets/json/4_50-indulgent-thanksgiving-side-dishes-for-any-holiday-gathering.json',
-        'https://introweb.tech/assets/json/5_healthy-thanksgiving-recipe-crockpot-turkey-breast.json',
-        'https://introweb.tech/assets/json/6_one-pot-thanksgiving-dinner.json',
-      ];
-      return cache.addAll(RECIPEURLS);
-      // return cache.addAll(['https://introweb.tech/assets/json/1_50-thanksgiving-side-dishes.json',
-      // 'https://introweb.tech/assets/json/2_roasting-turkey-breast-with-stuffing.json',
-      // 'https://introweb.tech/assets/json/3_moms-cornbread-stuffing.json',
-      // 'https://introweb.tech/assets/json/4_50-indulgent-thanksgiving-side-dishes-for-any-holiday-gathering.json',
-      // 'https://introweb.tech/assets/json/5_healthy-thanksgiving-recipe-crockpot-turkey-breast.json',
-      // 'https://introweb.tech/assets/json/6_one-pot-thanksgiving-dinner.json',]);
+      // const RECIPEURLS = [
+      //   'https://introweb.tech/assets/json/1_50-thanksgiving-side-dishes.json',
+      //   'https://introweb.tech/assets/json/2_roasting-turkey-breast-with-stuffing.json',
+      //   'https://introweb.tech/assets/json/3_moms-cornbread-stuffing.json',
+      //   'https://introweb.tech/assets/json/4_50-indulgent-thanksgiving-side-dishes-for-any-holiday-gathering.json',
+      //   'https://introweb.tech/assets/json/5_healthy-thanksgiving-recipe-crockpot-turkey-breast.json',
+      //   'https://introweb.tech/assets/json/6_one-pot-thanksgiving-dinner.json',
+      // ];
+      //return cache.addAll(RECIPEURLS);
+      return cache.addAll(['https://introweb.tech/assets/json/1_50-thanksgiving-side-dishes.json',
+      'https://introweb.tech/assets/json/2_roasting-turkey-breast-with-stuffing.json',
+      'https://introweb.tech/assets/json/3_moms-cornbread-stuffing.json',
+      'https://introweb.tech/assets/json/4_50-indulgent-thanksgiving-side-dishes-for-any-holiday-gathering.json',
+      'https://introweb.tech/assets/json/5_healthy-thanksgiving-recipe-crockpot-turkey-breast.json',
+      'https://introweb.tech/assets/json/6_one-pot-thanksgiving-dinner.json',]);
     })
   );
 });
@@ -52,10 +52,10 @@ self.addEventListener('fetch', function (event) {
   //            Otherwise fetch the resource, add it to the cache, and return
   //            network response.
   //from the the humble fetch event
-  event.respondWith(caches.open(Cache_Name).then((cache) => {
+  event.respondWith(caches.open(CACHE_NAME).then((cache) => {
     // Respond with the image from the cache or from the network
     return cache.match(event.request).then((cachedResponse) => {
-      return cachedResponse || fetch(event.request.url).then((fetchedResponse) => {
+      return cachedResponse || fetch(event.request).then((fetchedResponse) => {
         // Add the network response to the cache for future visits.
         // Note: we need to make a copy of the response to save it in
         // the cache and use the original as the request response.
